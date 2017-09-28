@@ -1,0 +1,173 @@
+﻿<!DOCTYPE html>
+<!-- 网银支付html -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>接口快捷_下订单</title>
+<script type="text/javascript" src="./js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="./js/jquery.qrcode.js"></script>
+<style type="text/css">
+	span{color:red};
+</style>
+</head>
+<body>
+
+<!-- 接口快捷 -->
+<form action="kuaijie_xiadan.php" method="post">
+
+<div style="text-align: center;">
+<h2>接口快捷_下订单</h2>
+		<table style="margin:0 auto;">
+			<tr>
+				<td   align="right" style="padding-right:20px">
+					商户号:
+				</td>
+				<td   align="left">
+					<input type="text" name="merchantId" value="1000000" />（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户订单号:
+				</td>
+				<td align="left">
+					<input type="text" id="merchantOrderId" name="merchantOrderId" value="" />（<span>必填</span>）
+				</td>
+
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单金额:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderAmt" value="200" />（<span>必填</span>，单位是：“分”，金额为2元）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单描述:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderDesc" value="小米4" />（<span>必填</span>，可以是产品名称）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					买家ID:
+				</td>
+				<td align="left">
+					<input type="text" name="payerId" value="">（非必填，可以为空）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					买家姓名:
+				</td>
+				<td align="left">
+					<input type="text" name="userName" value="张志国">（<span>必填</span>，身份证上的姓名）
+				</td>
+			</tr>
+			<tr>
+				<td   align="right" style="padding-right:20px">
+					卖家ID：
+				</td>
+				<td align="left">
+					<input type="text" name="salerId" value=""/>（非必填，可以为空）
+				</td>
+			</tr>
+			<tr>
+				<td   align="right" style="padding-right:20px">
+					担保金额：
+				</td>
+				<td align="left">
+					<input type="text" name="guaranteeAmt" value="0"/>（非必填，默认为“0”）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					证件类型:
+				</td>
+				<td align="left">
+					<select name="credentialType">
+						<option value="01">身份证</option>（<span>必填</span>，值“01”身份证）
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					证件号码:
+				</td>
+				<td align="left">
+					<input type="text" name="credentialNo" value="230224198006132014">（<span>必填</span>，身份证号）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					手机号:
+				</td>
+				<td align="left">
+					<input type="text" name="userMobileNo" value="13120033859">（<span>必填</span>，买家手机号）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					银行卡号:
+				</td>
+				<td align="left">
+					<input type="text" name="cardNo" value="6217000010074078455">（<span>必填</span>，银行卡号）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					信用卡背面3位数字:
+				</td>
+				<td align="left">
+					<input type="text" name="cvv2" value="">（非必填）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					信用卡有效期:
+				</td>
+				<td align="left">
+					<input type="text" name="validPeriod" value="">（非必填）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					异步通知地址:
+				</td>
+				<td align="left">
+					<input type="text" size="50" name="merchantPayNotifyUrl" value="http://localhost/notify.php">（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户前台返回地址:
+				</td>
+				<td align="left"> 
+					<input type="text" size="50" name="merchantFrontEndUrl" value="">（非必填）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+				</td>
+				<td align="left"><input type="submit" name="submit" value="确认"/></td>
+			</tr>
+		</table>
+
+</div>
+</form>
+
+</body>
+
+<script type="text/javascript">
+	//文档初始化
+	$(function(){
+		//订单号，设置为当前时间
+		var date = new Date(); 
+		$("#merchantOrderId").val(Date.parse(date));
+	});
+	
+</script>
+</html>

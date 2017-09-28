@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<!-- 网银支付html -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>扫码支付</title>
+<script type="text/javascript" src="./js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="./js/jquery.qrcode.js"></script>
+<style type="text/css">
+	span{color:red};
+</style>
+</head>
+<body>
+
+<!-- 网银支付 -->
+<form action="saoma.php" method="post">
+
+<div style="text-align: center;">
+<h2>扫码支付</h2>
+	<table style="margin:0 auto;">
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					应用类型:
+				</td>
+				<td  align="left">
+					<select type="text" name="application" >
+						<option value="WeiXinScanOrder">微信扫码</option>
+						<option value="ZFBScanOrder">支付宝扫码</option>
+					</select>
+					(<span >必填</span>，微信“WeiXinScanOrder”，支付宝“支付宝扫码”)
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					商户号:
+				</td>
+				<td  align="left">
+					<input type="text" name="merchantId" value="1000000" />
+					（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					时间戳:
+				</td>
+				<td  align="left">
+					<input type="text" id="timestamp" name="timestamp" value="" />
+					（<span>必填</span>，格式为“yyyyMMddHHmmss”)
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户订单号:
+				</td>
+				<td align="left">
+					<input type="text" id="merchantOrderId" name="merchantOrderId" value=""/>
+					（<span>必填</span>，值唯一）
+				</td>
+
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单金额:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderAmt" value="200" />
+					（<span>必填</span>，单位是分，200分 也就是 2元）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单描述:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderDesc" value="小米4" />
+					（<span>必填</span>，可以是产品名称）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					用户名:
+				</td>
+				<td align="left">
+					<input type="text" name="userName" value="Jim">
+					（<span>必填</span>，可以任意值，如“Jim”）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					买家ID:
+				</td>
+				<td align="left">
+					<input type="text" name="payerId" value="">
+					（非必填，值为空即可）
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					卖家ID：
+				</td>
+				<td align="left">
+					<input type="text" name="salerId" value=""/>
+					（非必填，值为空即可）
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					担保金额：
+				</td>
+				<td align="left">
+					<input type="text" name="guaranteeAmt" value="0"/>
+					（非必填，值默认为0）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					异步通知地址:
+				</td>
+				<td align="left">
+					<input type="text" size="50" name="merchantPayNotifyUrl" value="http://47.94.193.202/cm/notify.php">
+					（<span>必填</span>，商户接收异步通知地址）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+				</td>
+				<td align="left"><input type="submit" name="submit" value="确认"/></td>
+			</tr>
+	
+	</table>
+
+</div>
+</form>
+
+</body>
+
+<script type="text/javascript">
+	//文档初始化
+	$(function(){
+		//订单号，设置为当前时间
+		var date = new Date(); 
+		$("#merchantOrderId").val(Date.parse(date));
+		//时间戳，格式化yyyyMMddHHmmsss
+		var year = date.getFullYear().toString();
+		var temp = date.getMonth()+1;
+		var month = temp>9 ? temp.toString() : "0"+temp.toString();
+		var day = date.getDate();
+		var hour = date.getHours().toString();
+		var minute = date.getMinutes().toString();
+		var second = date.getSeconds().toString();
+		var sjc = year+month+day+hour+minute+second;
+		$("#timestamp").val(sjc);
+	});
+	
+</script>
+</html>

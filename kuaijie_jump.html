@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<!-- 网银支付html -->
+<html>
+<head>
+<meta charset="utf-8">
+<title>快捷跳转</title>
+<script type="text/javascript" src="./js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="./js/jquery.qrcode.js"></script>
+<style>
+	span {
+		color:red;
+	}
+</style>
+</head>
+<body>
+
+<!-- 网银支付 -->
+<form action="kuaijie_jump.php" method="post">
+
+<div style="text-align: center;">
+<h2>快捷跳转</h2>
+<table style="margin:0 auto;">
+			<tr>
+				<td width="40%" align="right" style="padding-right:20px">
+					商户号:
+				</td>
+				<td width="60%" align="left">
+					<input type="text" name="merchantId" value="1000000" /> （<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户订单号:
+				</td>
+				<td align="left">
+					<input type="text" id="merchantOrderId" name="merchantOrderId" value="" />（<span>必填</span>，值唯一）
+				</td>
+
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户名称:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantName" value="" />（非必填，可以为空）
+				</td>
+
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单金额:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderAmt" value="200" />（<span>必填</span>，单位“分”）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					订单描述:
+				</td>
+				<td align="left">
+					<input type="text" name="merchantOrderDesc" value="小米4" />（<span>必填</span>，可以是商品名称）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					买家ID:
+				</td>
+				<td align="left">
+					<input type="text" name="payerId" value="500226">（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td width="40%" align="right" style="padding-right:20px">
+					卖家ID：
+				</td>
+				<td align="left">
+					<input type="text" name="salerId" value=""/>（非必填）
+				</td>
+			</tr>
+			<tr>
+				<td width="40%" align="right" style="padding-right:20px">
+					担保金额：
+				</td>
+				<td align="left">
+					<input type="text" name="guaranteeAmt" value="0"/>（非必填，默认为“0”）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					异步通知地址:
+				</td>
+				<td align="left">
+					<input type="text" size="50" name="merchantPayNotifyUrl" value="http://123.56.119.177:8081/pay-interface/notify.jsp">（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户前台返回地址:
+				</td>
+				<td align="left"> 
+					<input type="text" size="50" name="merchantFrontEndUrl" value="">（非必填，商户前台地址）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+				</td>
+				<td align="left"><input type="submit" name="submit" value="确认"/></td>
+			</tr>
+		</table>
+
+</div>
+</form>
+
+
+</body>
+
+<script type="text/javascript">
+	//文档初始化
+	$(function(){
+		//订单号，设置为当前时间
+		var timestamp = Date.parse(new Date()); 
+		$("#merchantOrderId").val(timestamp);
+	});
+	
+</script>
+</html>

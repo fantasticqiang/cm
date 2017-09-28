@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<!-- 网银支付html -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>单笔代收付</title>
+<script type="text/javascript" src="./js/jquery-1.8.0.js"></script>
+<script type="text/javascript" src="./js/jquery.qrcode.js"></script>
+<style type="text/css">
+	span{color:red};
+</style>
+</head>
+<body>
+
+<!-- 订单查询 -->
+<form action="daifu_single.php" method="post">
+
+<div style="text-align: center;">
+<h2>单笔代收付</h2>
+	<table style="margin:0 auto;">
+			<tr>
+				<td align="right" style="padding-right:20px">
+					商户号:
+				</td>
+				<td  align="left">
+					<input type="text" name="merchantId" value="1000000" />（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					交易请求号:
+				</td>
+				<td align="left">
+					<input type="text" id="tranId" name="tranId" value="" />（<span>必填</span>，值唯一 不能含有“_”）
+				</td>
+
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					通知地址:
+				</td>
+				<td align="left">
+					<input type="text" size="50" name="receivePayNotifyUrl" value="http://47.94.193.202/cm/notify.php" />（<span>必填</span>，商户接收异步通知的地址）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					收付款类型:
+				</td>
+				<td align="left">
+					<select name="receivePayType">
+						<option value="0">收款</option>
+						<option value="1">付款</option>
+					</select>
+					（<span>必填</span>，“0”收款，“1”付款）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					对公对私:
+				</td>
+				<td align="left">
+					<select name="accountProp">
+						<option value="0">对私</option>
+						<option value="4">对公</option>
+					</select>
+					（<span>必填</span>，“0”对私，“4”对公）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					银行名称:
+				</td>
+				<td align="left">
+					<select name="bankGeneralName">
+						<option value="中国工商银行">中国工商银行</option>
+						<option value="中国农业银行">中国农业银行</option>
+						<option value="中国银行">中国银行</option>
+						<option value="中国建设银行">中国建设银行</option>
+						<option value="中信银行">中信银行</option>
+						<option value="交通银行">交通银行</option>
+						<option value="中国光大银行">中国光大银行</option>
+						<option value="中国民生银行">中国民生银行</option>
+						<option value="华夏银行">华夏银行</option>
+						<option value="上海浦东发展银行">上海浦东发展银行</option>
+						<option value="兴业银行">兴业银行</option>
+						<option value="广发银行">广发银行</option>
+						<option value="平安银行">平安银行</option>
+						<option value="招商银行">招商银行</option>
+						<option value="临商银行">临商银行</option>
+						<option value="日照银行">日照银行</option>
+						<option value="龙江银行">龙江银行</option>
+						<option value="苏州银行">苏州银行</option>
+						<option value="浙江稠州商业银行">浙江稠州商业银行</option>
+						<option value="汉口银行">汉口银行</option>
+						<option value="南京银行">南京银行</option>
+						<option value="大连银行">大连银行</option>
+						<option value="齐商银行">齐商银行</option>
+						<option value="江苏长江商业银行">江苏长江商业银行</option>
+						<option value="焦作市商业银行">焦作市商业银行</option>
+						<option value="锦州银行">锦州银行</option>
+						<option value="朝阳银行">朝阳银行</option>
+						<option value="杭州银行">杭州银行</option>
+						<option value="台州银行">台州银行</option>
+						<option value="浙江泰隆商业银行">浙江泰隆商业银行</option>
+						<option value="浙江民泰商业银行">浙江民泰商业银行</option>
+						<option value="江苏银行">江苏银行</option>
+						<option value="枣庄银行">枣庄银行</option>
+					</select>
+					（对公业务-<span>必填</span>，值为汉字，如“中国工商银行”）
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					账号：
+				</td>
+				<td align="left">
+					<input type="text" name="accNo" value="6217000010074078455"/>
+					（<span>必填</span>，银行卡号/企业银行账号）
+				</td>
+			</tr>
+			<tr>
+				<td  align="right" style="padding-right:20px">
+					账户名称：
+				</td>
+				<td align="left">
+					<input type="text" name="accName" value="张志国"/>
+					（<span>必填</span>，银行卡/企业所有者名字）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					金额:
+				</td>
+				<td align="left">
+					<input type="text" name="amount" value="200" />（<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					证件类型:
+				</td>
+				<td align="left">
+					<select name="credentialType">
+						<option value="01">身份证</option>
+						<option value="02">军官证</option>
+						<option value="03">护照</option>
+						<option value="04">回乡证</option>
+						<option value="05">台胞证</option>
+						<option value="06">警官证</option>
+						<option value="07">士兵证</option>
+						<option value="99">其他</option>
+					</select>
+					（对私-<span>必填</span>）
+					证件号：
+					<input type="text" name="credentialNo" value="230224198006132014"/>（对私-<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					手机号:
+				</td>
+				<td align="left">
+					<input type="text" name="tel" value="13120033859">（对私-<span>必填</span>）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+					备注:
+				</td>
+				<td align="left">
+					<input type="text" name="summary" value="">（非必填）
+				</td>
+			</tr>
+			<tr>
+				<td align="right" style="padding-right:20px">
+				</td>
+				<td align="left"><input type="submit" name="submit" value="确认"/></td>
+			</tr>
+	</table>
+
+</div>
+</form>
+
+</body>
+
+<script type="text/javascript">
+	//文档初始化
+	$(function(){
+		//交易请求号，设置为当前时间
+		var date = new Date(); 
+		$("#tranId").val(Date.parse(date));
+	});
+	
+</script>
+</html>
